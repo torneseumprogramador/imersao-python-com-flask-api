@@ -3,6 +3,8 @@ import aplicacao.controladores.inicial_controlador as inicial_controlador
 
 
 def registrar(app):
-    app.route("/")(inicial_controlador.inicial_index)
-    app.route("/alunos")(alunos_controlador.alunos_index)
+    app.route("/", methods=["GET"])(inicial_controlador.inicial_index)
+
+    app.route("/alunos", methods=["GET"])(alunos_controlador.alunos_index)
+    app.route("/alunos", methods=["POST"])(alunos_controlador.alunos_criar)
 

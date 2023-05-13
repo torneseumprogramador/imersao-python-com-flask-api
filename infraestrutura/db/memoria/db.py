@@ -1,4 +1,4 @@
-def execute(sql):
+def executar(sql):
     return [
         {
             "id": 1,

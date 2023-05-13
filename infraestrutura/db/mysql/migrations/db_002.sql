@@ -1,3 +1,3 @@
 use imersao_python_flask;
 
-ALTER TABLE clientes RENAME COLUMN nome_cliente TO nome;
+ALTER TABLE alunos RENAME COLUMN nome_aluno TO nome;
