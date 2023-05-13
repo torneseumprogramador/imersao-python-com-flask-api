@@ -6,14 +6,24 @@ def inicial_index():
         'mensagem': 'Bem vindo a imersão de Python com Flask API',
         'endpoints': [
             { 
-                "GET": "/alunos",
-                "POST": {
-                    "rota": "/alunos",
-                    "body": {
-                        "id": 0,
-                        "nome": "",
-                        "matricula": "",
-                    }
+                "alunos": {
+                    "GET": "/alunos",
+                    "POST": {
+                        "rota": "/alunos",
+                        "body": {
+                            "id": 0,
+                            "nome": "",
+                            "matricula": "",
+                        }
+                    },
+                    "PUT": {
+                        "rota": "/alunos/{id}",
+                        "body": {
+                            "nome": "",
+                            "matricula": "",
+                        }
+                    },
+                    "DELETE": "/alunos/{id}"
                 }
             }
         ]

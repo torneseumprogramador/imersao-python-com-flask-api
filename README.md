@@ -20,3 +20,11 @@ sh mysql_migration.sh # rodar migrações do mysql
 sh bundle.sh # instalar dependências
 sh start.sh # startar a aplicação
 ```
+
+## Exemplos em testes feitos com curl via sh
+```shell
+sh testes/curl/get.sh
+sh testes/curl/post.sh
+sh testes/curl/put.sh
+sh testes/curl/delete.sh
+```

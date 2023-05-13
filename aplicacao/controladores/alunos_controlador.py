@@ -12,9 +12,24 @@ def alunos_index():
     return jsonify(conv.converter_para_lista_dict(alunos))
 
 def alunos_criar():
-    print(request.get_json())
-
     aluno = entidade.Aluno(request.get_json())
     aluno = repo.AlunoRepositorio(db).salvar(aluno)
     return jsonify(aluno.__dict__), 201
+
+def alunos_atualizar(id):
+    if not repo.AlunoRepositorio(db).existe_este_id(id):
+        return jsonify({ "erro": "Aluno não existe" }), 404
+
+    aluno_dict = request.get_json()
+    aluno_dict["id"] = id
+    aluno = entidade.Aluno(aluno_dict)
+    aluno = repo.AlunoRepositorio(db).salvar(aluno)
+    return jsonify(aluno.__dict__), 200
+
+def alunos_apagar(id):
+    if not repo.AlunoRepositorio(db).existe_este_id(id):
+        return jsonify({ "erro": "Aluno não existe" }), 404
+
+    repo.AlunoRepositorio(db).excluir_por_id(id)
+    return jsonify({}), 204
 
