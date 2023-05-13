@@ -40,7 +40,7 @@ from testes.unittests.dominio.entidades.aluno_test import TestAluno
 unittest.main()
 ```
 
-## Como executar
+## Como executar testes com unittest
 ```shell
 sh test.sh
 ```
