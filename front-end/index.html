@@ -1,123 +1,191 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Exemplo de CRUD com Fetch</title>
+    <title>Exemplo de CRUD com Fetch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-top: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button.updateButton,
+        button.deleteButton {
+            margin-left: 10px;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Exemplo de CRUD com Fetch</h1>
+    <h1>Exemplo de CRUD com Fetch</h1>
 
-  <h2>Alunos</h2>
-  <div>
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" />
-    <label for="matricula">Matrícula:</label>
-    <input type="text" id="matricula" />
-    <button onclick="createAluno()">Criar Aluno</button>
-  </div>
+    <h2>Alunos</h2>
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" />
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" />
+        <button onclick="createAluno()">Criar Aluno</button>
+    </div>
 
-  <h2>Lista de Alunos</h2>
-  <ul id="alunosList"></ul>
+    <h2>Lista de Alunos</h2>
+    <table id="alunosList">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-  <script>
-    const host = "http://localhost:5000";
-    // Função para fazer uma requisição GET para obter a lista de alunos
-    async function getAlunos() {
-      const response = await fetch(`${host}/alunos`);
-      const data = await response.json();
-      return data;
-    }
+    <script>
+        const host = "http://localhost:5000";
+        // Função para fazer uma requisição GET para obter a lista de alunos
+        async function getAlunos() {
+            const response = await fetch(`${host}/alunos`);
+            const data = await response.json();
+            return data;
+        }
 
-    // Função para fazer uma requisição POST para criar um novo aluno
-    async function createAluno() {
-      const nome = document.getElementById('nome').value;
-      const matricula = document.getElementById('matricula').value;
+        // Função para fazer uma requisição POST para criar um novo aluno
+        async function createAluno() {
+            const nome = document.getElementById('nome').value;
+            const matricula = document.getElementById('matricula').value;
 
-      const aluno = { nome, matricula };
+            const aluno = { nome, matricula };
 
-      const response = await fetch(`${host}/alunos`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(aluno)
-      });
+            const response = await fetch(`${host}/alunos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(aluno)
+            });
 
-      const data = await response.json();
+            const data = await response.json();
 
-      document.getElementById('nome').value = "";
-      document.getElementById('matricula').value = "";
+            document.getElementById('nome').value = "";
+            document.getElementById('matricula').value = "";
 
-      // Atualiza a lista de alunos
-      loadAlunos();
-    }
+            // Atualiza a lista de alunos
+            loadAlunos();
+        }
 
-    // Função para fazer uma requisição PUT para atualizar um aluno existente
-    async function updateAluno(id) {
-      const nome = prompt('Digite o novo nome:');
-      const matricula = prompt('Digite a nova matrícula:');
+        // Função para fazer uma requisição PUT para atualizar um aluno existente
+        async function updateAluno(id) {
+            const nome = prompt('Digite o novo nome:');
+            const matricula = prompt('Digite a nova matrícula:');
 
-      const aluno = { nome, matricula };
+            const aluno = { nome, matricula };
 
-      const response = await fetch(`${host}/alunos/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(aluno)
-      });
+            const response = await fetch(`${host}/alunos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(aluno)
+            });
 
-      const data = await response.json();
+            const data = await response.json
+            document.getElementById('nome').value = "";
+            document.getElementById('matricula').value = "";
 
-      document.getElementById('nome').value = "";
-      document.getElementById('matricula').value = "";
+            // Atualiza a lista de alunos
+            loadAlunos();
+        }
 
-      // Atualiza a lista de alunos
-      loadAlunos();
-    }
+        // Função para fazer uma requisição DELETE para excluir um aluno
+        async function deleteAluno(id) {
+            const confirmacao = confirm('Tem certeza que deseja excluir este aluno?');
 
-    // Função para fazer uma requisição DELETE para excluir um aluno
-    async function deleteAluno(id) {
-      const confirmacao = confirm('Tem certeza que deseja excluir este aluno?');
+            if (confirmacao) {
+                const response = await fetch(`${host}/alunos/${id}`, {
+                    method: 'DELETE'
+                });
 
-      if (confirmacao) {
-        const response = await fetch(`${host}/alunos/${id}`, {
-          method: 'DELETE'
-        });
+                loadAlunos();
+            }
+        }
 
+        // Função para carregar a lista de alunos e exibi-la na tabela
+        async function loadAlunos() {
+            const alunosList = document.getElementById('alunosList');
+            const tbody = alunosList.getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+
+            const alunos = await getAlunos();
+
+            alunos.forEach(aluno => {
+                const row = document.createElement('tr');
+
+                const nomeCell = document.createElement('td');
+                nomeCell.innerHTML = aluno.nome;
+                row.appendChild(nomeCell);
+
+                const matriculaCell = document.createElement('td');
+                matriculaCell.innerHTML = aluno.matricula;
+                row.appendChild(matriculaCell);
+
+                const actionsCell = document.createElement('td');
+                const updateButton = document.createElement('button');
+                updateButton.innerHTML = 'Atualizar';
+                updateButton.className = 'updateButton';
+                updateButton.onclick = () => updateAluno(aluno.id);
+                actionsCell.appendChild(updateButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerHTML = 'Excluir';
+                deleteButton.className = 'deleteButton';
+                deleteButton.onclick = () => deleteAluno(aluno.id);
+                actionsCell.appendChild(deleteButton);
+
+                row.appendChild(actionsCell);
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carrega a lista de alunos ao carregar a página
         loadAlunos();
-      }
-    }
-
-    // Função para carregar a lista de alunos e exibi-la no HTML
-    async function loadAlunos() {
-      const alunosList = document.getElementById('alunosList');
-      alunosList.innerHTML = '';
-
-      const alunos = await getAlunos();
-
-      alunos.forEach(aluno => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `${aluno.nome} (Matrícula: ${aluno.matricula})`;
-
-        const updateButton = document.createElement('button');
-        updateButton.innerHTML = 'Atualizar';
-        updateButton.onclick = () => updateAluno(aluno.id);
-
-        const deleteButton = document.createElement('button');
-
-        deleteButton.innerHTML = 'Excluir';
-        deleteButton.onclick = () => deleteAluno(aluno.id);
-
-        listItem.appendChild(updateButton);
-        listItem.appendChild(deleteButton);
-
-        alunosList.appendChild(listItem);
-      });
-    }
-
-    // Carrega a lista de alunos ao carregar a página
-    loadAlunos();
-  </script>
+    </script>
 </body>
-</html>
 
+</html>

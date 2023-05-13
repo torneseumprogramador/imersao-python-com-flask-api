@@ -26,16 +26,6 @@ class MySQLConnection:
         except Error as e:
             print(f"Erro ocorreu: {e}")
         
-        # ==== todo remover depois ====
-        print("-"* 50)
-        print(query)
-        print("-"* 50)
-        print(params)
-        print("-"* 50)
-        print(result)
-        print("-"* 50)
-        # =============================
-
         return result
 
     def close(self):
