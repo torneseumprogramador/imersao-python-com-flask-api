@@ -4,5 +4,6 @@
 
 ## Para startar a aplicação digite: 
 ```shell
-sh start.sh
+sh bundle.sh # instalar dependências
+sh start.sh # startar a aplicação
 ```
