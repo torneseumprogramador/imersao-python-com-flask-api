@@ -16,6 +16,7 @@ export DATABASE="imersao_python_flask"
 
 ## Para startar a aplicação digite: 
 ```shell
+sh mysql_migration.sh # rodar migrações do mysql
 sh bundle.sh # instalar dependências
 sh start.sh # startar a aplicação
 ```
