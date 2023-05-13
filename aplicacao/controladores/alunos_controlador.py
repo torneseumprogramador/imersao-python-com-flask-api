@@ -4,6 +4,7 @@ import dominio.entidades.aluno as entidade
 import dominio.servicos.aluno_repositorio as repo
 import dominio.servicos.converter_para_lista_dict as conv
 # import infraestrutura.db.memoria.db as db
+# import infraestrutura.db.postgres.db as db
 import infraestrutura.db.mysql.db as db
 
 
