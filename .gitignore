@@ -363,6 +363,8 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
+executados.txt
+
 # Folder config file
 [Dd]esktop.ini
 
