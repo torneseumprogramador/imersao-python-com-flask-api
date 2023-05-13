@@ -14,11 +14,29 @@ export PASS="root"
 export DATABASE="imersao_python_flask"
 ```
 
-## Para startar a aplicação digite: 
+## Para startar a aplicação API digite: 
 ```shell
 sh mysql_migration.sh # rodar migrações do mysql
 sh bundle.sh dev # instalar dependências (dev|prod)
 sh start.sh # startar a aplicação
+```
+
+
+## Configure o seu host da maquina local com este mapeamento: 
+```shell
+sudo vim /etc/hosts # MacOs e Linux
+notepad C:\Windows\System32\drivers\etc\hosts # Windows
+```
+
+```code
+127.0.0.1 localhost api.imersao.com.br
+```
+
+## Para startar a aplicação FRONT digite: 
+```shell
+open front-end/index.html # MacOS
+start front-end/index.html # windows
+xdg-open front-end/index.html # linux
 ```
 
 ## Exemplos em testes feitos com curl via sh
@@ -43,4 +61,10 @@ unittest.main()
 ## Como executar testes com unittest
 ```shell
 sh test.sh
+```
+
+## deploy
+### para entrar no servidor executar o comando abaixo
+```shell
+IP_MAQUINA=<SEU IP> CHAVE_PEM=<SUA CHAVE PRIVADA RSA> sh conectar_no_servidor.sh
 ```
