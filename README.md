@@ -389,3 +389,26 @@ server {
 }
 
 ```
+
+
+## Host no meu computador
+```shell
+cat /etc/hosts
+```
+```vim
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1 localhost
+44.201.138.46 api.imersao.com.br
+44.201.138.46 imersao.com.br
+
+255.255.255.255 broadcasthost
+# ::1             localhost 
+# fe80::1%lo0   localhost
+
+# End of section
+```
